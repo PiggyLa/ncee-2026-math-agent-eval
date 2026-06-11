@@ -9,15 +9,15 @@ total_score: 150
 duration_min: 120
 scope: grading only · stems + answers + solution sketches
 paired_stems: exam/stems_bilingual.md
-source_en: official 2026 print · all items independently verified
-source_zh: 官方印刷版 · 全卷经独立验算
+source_en: web-circulated 2026 answers (officiality unverified) · all items independently verified
+source_zh: 网传参考答案（官方属性未核实）· 全卷经独立验算
 errata_count: 8
 ---
 
 # 2026 NCEE Mathematics · New Curriculum Paper I · Answer Key | 2026 新高考 I 卷 · 数学 · 标答
 
-> **EN.** Stems match `exam/stems_bilingual.md`. Every answer independently re-derived; divergences from the official print: [Errata](#errata--勘误). Q15: embedded TikZ; Q16–Q19: no figures.  
-> **ZH.** 题干与 `exam/stems_bilingual.md` 一致；全部标答经独立验算，与官方印刷不一致处见[勘误](#errata--勘误)。Q15 含内嵌 TikZ；Q16–Q19 无配图。
+> **EN.** Stems match `exam/stems_bilingual.md`. Every answer independently re-derived; divergences from the circulated answers: [Errata](#errata--勘误). Q15: embedded TikZ; Q16–Q19: no figures.  
+> **ZH.** 题干与 `exam/stems_bilingual.md` 一致；全部标答经独立验算，与网传参考答案不一致处见[勘误](#errata--勘误)。Q15 含内嵌 TikZ；Q16–Q19 无配图。
 
 ---
 
@@ -36,7 +36,7 @@ errata_count: 8
 | 9 | **ACD** | 19 | see §Q19 |
 | 10 | **BC** | | |
 
-† Differs from the official print; see [Errata](#errata--勘误) · 与官方印刷不一致，见勘误。
+† Differs from the circulated answers; see [Errata](#errata--勘误) · 与网传答案不一致，见勘误。
 
 ---
 
@@ -551,22 +551,22 @@ errata_count: 8
 
 ## Errata | 勘误
 
-All 19 items independently re-derived; the printed conclusions below fail verification. **Values in this file govern scoring; printed variants earn no credit.**  
-全卷 19 题独立验算，下列印刷结论不成立。**改卷以本文件为准，印刷值不给分。**
+All 19 items independently re-derived; the circulated conclusions below fail verification. **Values in this file govern scoring; circulated variants earn no credit.**  
+全卷 19 题独立验算，下列网传结论不成立。**改卷以本文件为准，网传值不给分。**
 
-| Q | Printed 印刷 | Verified 验证 | Cause 成因 |
+| Q | Circulated 网传 | Verified 验证 | Cause 成因 |
 |:-:|:------------|:--------------|:-----------|
-| 11 | BC | **BCD** | D attained: $S_{\max}=\dfrac{2\sqrt{21}}{3}$ at $k^2=\dfrac{17}{4}$ · D 可取等，印刷放缩失效 |
-| 14 | $4$ | $\dfrac{\sqrt[3]{12}}{2}$ | printed derivation reads the sum condition as all $n$ · 印刷解将求和条件误读为对全体 $n$ |
-| 15(2) | $\dfrac{\sqrt{2}}{2}$ | $1$ | printed solution takes $E$ as midpoint of $AC$, not $AC_1$ · 印刷解误以 $E$ 为 $AC$ 中点 |
+| 11 | BC | **BCD** | D attained: $S_{\max}=\dfrac{2\sqrt{21}}{3}$ at $k^2=\dfrac{17}{4}$ · D 可取等，网传放缩失效 |
+| 14 | $4$ | $\dfrac{\sqrt[3]{12}}{2}$ | circulated derivation reads the sum condition as all $n$ · 网传解将求和条件误读为对全体 $n$ |
+| 15(2) | $\dfrac{\sqrt{2}}{2}$ | $1$ | circulated solution takes $E$ as midpoint of $AC$, not $AC_1$ · 网传解误以 $E$ 为 $AC$ 中点 |
 | 16(1) | $\dfrac{\sqrt{7}}{3}$ | $\dfrac{1}{3}$ | $\sin A$ dropped a factor $2$; $BC>AC\Rightarrow A>B\Rightarrow\cos A<\cos B$ · 正弦丢因子 $2$，大边对大角即可排除 |
 | 16(2) | $\sqrt{6}$ | $3\sqrt{5}$ | propagates from 16(1) · 由 16(1) 传导 |
-| 18(2)(i) | $y=\dfrac{1}{2}(x+1)$ | $y=\dfrac{\sqrt{5}}{2}(x+1)$ | printed solution sets slope$(PO)=k$ · 印刷解误设 $PO$ 斜率为 $k$ |
-| 18(2)(ii) | $\dfrac{\sqrt{2}}{2}$ | $4\sqrt{3}$ | $PR$ is a central chord, $\angle PQR$ stays near $90^\circ$ · $PR$ 过中心，张角近直角，印刷最小值不可能 |
-| 19(1) | $\left(-1,\dfrac{3}{2}\right)$ | $\left(0,\dfrac{3}{2}\right)$ | $2^{-1+d}\leqslant\dfrac{1}{2}$ on $(-1,0]$ · 印刷解于 $(-1,0]$ 段误判 |
+| 18(2)(i) | $y=\dfrac{1}{2}(x+1)$ | $y=\dfrac{\sqrt{5}}{2}(x+1)$ | circulated solution sets slope$(PO)=k$ · 网传解误设 $PO$ 斜率为 $k$ |
+| 18(2)(ii) | $\dfrac{\sqrt{2}}{2}$ | $4\sqrt{3}$ | $PR$ is a central chord, $\angle PQR$ stays near $90^\circ$ · $PR$ 过中心，张角近直角，网传最小值不可能 |
+| 19(1) | $\left(-1,\dfrac{3}{2}\right)$ | $\left(0,\dfrac{3}{2}\right)$ | $2^{-1+d}\leqslant\dfrac{1}{2}$ on $(-1,0]$ · 网传解于 $(-1,0]$ 段误判 |
 
-Remaining printed step-level slips do not affect other conclusions.  
-其余印刷过程性笔误不影响他题结论。
+Remaining circulated step-level slips do not affect other conclusions.  
+其余网传过程性笔误不影响他题结论。
 
 ---
 

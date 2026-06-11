@@ -12,11 +12,11 @@ Agent 题干以 `exam/stems_bilingual.md` 为准；本文件内嵌相同题干�
 
 ## Source | 来源
 
-Official 2026 print; all 19 items independently re-derived.  
-2026 官方印刷版；19 题全部经独立验算。
+Web-circulated 2026 answers (officiality unverified); all 19 items independently re-derived.  
+2026 网传参考答案（官方属性未核实）；19 题全部经独立验算。
 
 ## Errata | 勘误
 
-Eight printed values fail verification — Q11, Q14, Q15(2), Q16(1)(2), Q18(2)(i)(ii), Q19(1); details in `answer_key_bilingual.md` § Errata.  
-Verified values govern scoring; printed variants earn no credit.  
-官方印刷 8 处经验算不成立（Q11、Q14、Q15(2)、Q16(1)(2)、Q18(2)(i)(ii)、Q19(1)），详见标答《勘误》。改卷以验证值为准，印刷值不给分。
+Eight circulated values fail verification — Q11, Q14, Q15(2), Q16(1)(2), Q18(2)(i)(ii), Q19(1); details in `answer_key_bilingual.md` § Errata.  
+Verified values govern scoring; circulated variants earn no credit.  
+网传答案 8 处经验算不成立（Q11、Q14、Q15(2)、Q16(1)(2)、Q18(2)(i)(ii)、Q19(1)），详见标答《勘误》。改卷以验证值为准，网传值不给分。

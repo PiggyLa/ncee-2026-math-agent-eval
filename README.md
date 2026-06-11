@@ -29,6 +29,9 @@ ncee-2026-math-agent-eval/
 │   └── rubric.md                    # Scorer · rules · workspace
 ├── results/                         # frozen runs · ledger
 │   └── <run_id>/                    # manifest, submissions, reports, summary
+├── paper/                           # manuscript (en arXiv master + zh companion)
+│   ├── en/main.tex
+│   └── zh/main_zh.tex
 └── scripts/
     └── plot_results.py              # summary figures from results/<run_id>/
 ```
@@ -40,6 +43,7 @@ ncee-2026-math-agent-eval/
 | `key/` | ✗ | Reference key · 标答与要点 |
 | `scoring/` | ✗ | Workspace · rubric & ephemeral reports · 工作区规则与报告 |
 | `results/` | ✗ | Ledger · frozen runs · 冻结批次账本 |
+| `paper/` | ✗ | Manuscript · results & errata quoted · 论文稿（含结果与勘误） |
 | `scripts/` | ✗ | Tooling · derived figures · 派生图表工具 |
 
 **Roles · 角色** — **Subject** · 受测 Agent（闭卷作答）| **Scorer** · 改卷方 | **Maintainer** · 维护方（归档与派生图表）
@@ -53,7 +57,7 @@ Run per evaluation. The subject agent must never see keys, rubrics, ledger runs,
 
 | Phase | EN | ZH |
 |:-----:|----|----|
-| 1 · Prepare | Remove `key/`, `scoring/`, `results/`, `scripts/` from the subject-visible workspace; clear `submissions/` except `submission_template.md` | 移出 `key/`、`scoring/`、`results/`、`scripts/`；清空 `submissions/`（保留 `submission_template.md`） |
+| 1 · Prepare | Remove `key/`, `scoring/`, `results/`, `paper/`, `scripts/` from the subject-visible workspace; clear `submissions/` except `submission_template.md` | 移出 `key/`、`scoring/`、`results/`、`paper/`、`scripts/`；清空 `submissions/`（保留 `submission_template.md`） |
 | 2 · Exam | Subject reads subject surface only (below); writes one submission to `submissions/` | 受测方仅读受测平面（下）；向 `submissions/` 写入一份答卷 |
 | 3 · Score | Restore `key/` and `scoring/`; grade against key and rubric; write report to `scoring/` | 恢复 `key/` 与 `scoring/`；对照标答与规则改卷；报告写入 `scoring/` |
 | 4 · Publish | Copy workspace outputs to `results/<run_id>/`; regenerate `summary/` via `scripts/plot_results.py` | 将工作区产物复制至 `results/<run_id>/`；以 `scripts/plot_results.py` 再生 `summary/` |
@@ -116,8 +120,8 @@ No retroactive unknown · 立即 shell 记录，禁止事后补填 unknown.
 
 [Rules · 规则]
 1. Read · 可读: exam/stems_bilingual.md; submissions/submission_template.md; README.md
-2. Prohibited · 禁止: key/; scoring/; results/; scripts/; prior submissions or reports; external keys
-   不得访问 key/、scoring/、results/、scripts/、历史答卷或评分报告、外部标答
+2. Prohibited · 禁止: key/; scoring/; results/; paper/; scripts/; prior submissions or reports; external keys
+   不得访问 key/、scoring/、results/、paper/、scripts/、历史答卷或评分报告、外部标答
 3. Scope · 范围: ALL 19 items
    Single Q01–Q08 | Multiple Q09–Q11 | Fill-in Q12–Q14 | Free response Q15–Q19
 4. Quality · 质量:
@@ -179,8 +183,8 @@ Score one submission against the reference key and rubric.
 - Fill-in Q12–Q14: equivalent forms accepted; Q13 two blanks 2.5 each
 - Free response Q15–Q19: compare key results and reasoning quality;
   award partial credit where rubric and key support it
-- Errata items (key § Errata): verified values govern; printed variants no credit
-  勘误条目以验证值为准，印刷值不给分
+- Errata items (key § Errata): verified values govern; circulated variants no credit
+  勘误条目以验证值为准，网传值不给分
 
 [Report · 报告]
 Front matter (YAML):
@@ -212,6 +216,13 @@ python scripts/plot_results.py --run 2026-06-10
 
 ---
 
+## Paper | 论文
+
+Manuscript for run `2026-06-10` in [`paper/`](paper/README.md) — `en/main.tex` (arXiv master · pdfLaTeX) · `zh/main_zh.tex` (中文对照 · XeLaTeX). Build & submission guide in `paper/README.md`.
+批次 `2026-06-10` 的论文稿；编译与投稿指引见 `paper/README.md`。论文属维护方平面，第 1 阶段移出（见上文隔离规程）。
+
+---
+
 ## Encoding | 编码
 
 UTF-8, no BOM. · UTF-8，无 BOM。
@@ -221,5 +232,5 @@ UTF-8, no BOM. · UTF-8，无 BOM。
 ## Note | 说明
 
 Original paper: Q15 figure embedded (TikZ in MD); Q16–Q19 no figures.  
-Reference key: official print, all 19 items independently verified; divergences in `key/answer_key_bilingual.md` § Errata.  
-原卷仅 Q15 含配图（MD 内嵌 TikZ），Q16–Q19 无配图。标答经全卷独立验算，与官方印刷不一致处见 `key/answer_key_bilingual.md` 勘误。
+Reference key: web-circulated answers (officiality unverified), all 19 items independently re-derived; divergences in `key/answer_key_bilingual.md` § Errata.  
+原卷仅 Q15 含配图（MD 内嵌 TikZ），Q16–Q19 无配图。标答源自网传参考答案并经全卷独立验算，不一致处见 `key/answer_key_bilingual.md` 勘误。

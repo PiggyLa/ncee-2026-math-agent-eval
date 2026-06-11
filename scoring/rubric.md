@@ -52,8 +52,8 @@ Step quality earns partial credit; bare conclusions earn minimal credit.
 
 ## Divergences | 勘误口径
 
-Verified values govern (`key/answer_key_bilingual.md` § Errata); official-print variants earn no credit.  
-以验证值为准（见标答《勘误》）；官方印刷值不给分。
+Verified values govern (`key/answer_key_bilingual.md` § Errata); circulated variants earn no credit.  
+以验证值为准（见标答《勘误》）；网传值不给分。
 
 ## Report format | 报告格式
 

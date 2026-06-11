@@ -19,10 +19,13 @@ Data provenance
 
 Usage
     python scripts/plot_results.py --run 2026-06-10
+    python scripts/plot_results.py --run 2026-06-10 --paper
 Outputs
-    results/<run_id>/summary/ncee2026_results.png   (300 dpi)
+    results/<run_id>/summary/ncee2026_results.png         (300 dpi)
     results/<run_id>/summary/ncee2026_results.svg
     results/<run_id>/summary/scores.csv
+    --paper: ncee2026_results_paper.{png,svg} — manuscript variant,
+    header/footer stripped (caption carries the metadata), tight bbox.
 """
 
 from __future__ import annotations
@@ -413,21 +416,22 @@ def draw_time(ax: plt.Axes) -> None:
     ax.set_title("Score vs. wall-clock time", **TITLE_KW)
 
 
-def build_figure() -> plt.Figure:
+def build_figure(paper_mode: bool = False) -> plt.Figure:
     models = sorted_models()
     n = len(models)
     run_id = str(RUN_META.get("run_id", ""))
     fig = plt.figure(figsize=(13.4, 8.9))
 
-    fig.text(0.058, 0.972,
-             "Closed-Book AI Agent Evaluation \u2014 "
-             "2026 NCEE Mathematics, Paper I",
-             fontsize=15.5, fontweight="bold", color=INK, va="top")
-    fig.text(0.058, 0.934,
-             f"{n} agents \u00b7 19 items \u00b7 150 points \u00b7 {run_id}",
-             fontsize=9.5, color=SLATE, va="top")
-    fig.add_artist(Line2D([0.058, 0.975], [0.916, 0.916],
-                          transform=fig.transFigure, color=RULE, lw=0.9))
+    if not paper_mode:
+        fig.text(0.058, 0.972,
+                 "Closed-Book AI Agent Evaluation \u2014 "
+                 "2026 NCEE Mathematics, Paper I",
+                 fontsize=15.5, fontweight="bold", color=INK, va="top")
+        fig.text(0.058, 0.934,
+                 f"{n} agents \u00b7 19 items \u00b7 150 points \u00b7 {run_id}",
+                 fontsize=9.5, color=SLATE, va="top")
+        fig.add_artist(Line2D([0.058, 0.975], [0.916, 0.916],
+                              transform=fig.transFigure, color=RULE, lw=0.9))
 
     ax_a = fig.add_axes([0.155, 0.570, 0.460, 0.300])
     ax_b = fig.add_axes([0.715, 0.570, 0.260, 0.300])
@@ -444,16 +448,17 @@ def build_figure() -> plt.Figure:
     panel_letter(fig, ax_c, "c", LETTER_X_LEFT)
     panel_letter(fig, ax_d, "d", LETTER_X_RIGHT)
 
-    fig.add_artist(Line2D([0.058, 0.975], [0.048, 0.048],
-                          transform=fig.transFigure, color=RULE, lw=0.9))
-    fig.text(0.058, 0.026,
-             "One closed-book submission per agent · provider defaults; "
-             "reasoning effort = medium where selectable · "
-             "errata-verified key · multiple-choice 6/3/0 · "
-             "equivalent forms accepted",
-             fontsize=7.4, color="#75808C", va="center")
-    fig.text(0.975, 0.026, "ncee-2026-math-agent-eval",
-             fontsize=7.4, color="#A6AFB9", va="center", ha="right")
+    if not paper_mode:
+        fig.add_artist(Line2D([0.058, 0.975], [0.048, 0.048],
+                              transform=fig.transFigure, color=RULE, lw=0.9))
+        fig.text(0.058, 0.026,
+                 "One closed-book submission per agent · provider defaults · "
+                 "reasoning effort = medium where selectable · "
+                 "errata-verified key · multiple-choice 6/3/0 · "
+                 "equivalent forms accepted",
+                 fontsize=7.4, color="#75808C", va="center")
+        fig.text(0.975, 0.026, "ncee-2026-math-agent-eval",
+                 fontsize=7.4, color="#A6AFB9", va="center", ha="right")
     return fig
 
 
@@ -475,25 +480,30 @@ def write_csv(path: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description="Plot ncee-2026-math-agent-eval results")
     parser.add_argument("--run", default="2026-06-10", help="run_id under results/")
+    parser.add_argument("--paper", action="store_true",
+                        help="manuscript variant: strip header/footer, tight bbox")
     args = parser.parse_args()
 
     setup_style()
     out_dir = load_run(args.run)
     out_dir.mkdir(parents=True, exist_ok=True)
 
-    fig = build_figure()
-    png = out_dir / f"{FIG_STEM}.png"
-    fig.savefig(png, dpi=300)
+    stem = FIG_STEM + ("_paper" if args.paper else "")
+    save_kw = dict(bbox_inches="tight", pad_inches=0.08) if args.paper else {}
+    fig = build_figure(paper_mode=args.paper)
+    png = out_dir / f"{stem}.png"
+    fig.savefig(png, dpi=300, **save_kw)
     try:
-        fig.savefig(out_dir / f"{FIG_STEM}.svg")
+        fig.savefig(out_dir / f"{stem}.svg", **save_kw)
     except Exception as exc:
         print(f"[warn] svg export skipped: {exc}")
     plt.close(fig)
 
-    write_csv(out_dir / "scores.csv")
+    if not args.paper:
+        write_csv(out_dir / "scores.csv")
+        print(f"[ok] {out_dir / 'scores.csv'}")
     print(f"[ok] {png}")
-    print(f"[ok] {out_dir / (FIG_STEM + '.svg')}")
-    print(f"[ok] {out_dir / 'scores.csv'}")
+    print(f"[ok] {out_dir / (stem + '.svg')}")
 
 
 if __name__ == "__main__":
