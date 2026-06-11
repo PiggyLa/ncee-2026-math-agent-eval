@@ -1,0 +1,11 @@
+run_id: 2026-06-10
+framework: ncee-2026-math-agent-eval
+exam_en: 2026 NCEE Mathematics · New Curriculum Paper I
+exam_zh: 2026年普通高等学校招生全国统一考试 · 数学 · 新课标 I 卷
+agents: 10
+items: 19
+total_score: 150
+scored_on: 2026-06-10
+answer_key: key/answer_key_bilingual.md
+key_policy: errata-verified
+conditions: provider defaults; reasoning effort = medium where selectable
