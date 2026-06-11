@@ -1,0 +1,10 @@
+# Workspace artifacts — per-evaluation ephemeral outputs (ledger → results/).
+# 工作区产物——单轮临时输出；公开批次归档至 results/。
+submissions/*
+!submissions/submission_template.md
+scoring/*
+!scoring/rubric.md
+
+# Public-mirror option: hide the reference key.
+# 公开镜像可选：隐藏标答。
+# key/
