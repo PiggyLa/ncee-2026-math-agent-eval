@@ -3,7 +3,6 @@
 %%  Meaning and measurement after machines saturate the Gaokao
 %%
 %%  Build:  pdflatex main.tex  (run twice)   |  arXiv-ready, TeX Live
-%%  TODO :  replace [Author], [Affiliation], [email], [REPO-URL]
 %% =====================================================================
 \pdfoutput=1
 \documentclass[11pt]{article}
@@ -22,9 +21,11 @@
 \usepackage{xcolor}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,
             urlcolor={blue!35!black}]{hyperref}
+\usepackage{xurl}
 
 \captionsetup{font=small,labelfont=bf,width=0.94\textwidth}
 \setlist{itemsep=2pt,topsep=4pt}
+\emergencystretch=1.5em
 
 \theoremstyle{plain}
 \newtheorem{proposition}{Proposition}
@@ -33,7 +34,7 @@
 \hypersetup{
   pdftitle={The Last Scarcity: Meaning and Measurement After Machines
             Saturate the Gaokao},
-  pdfauthor={[Author]},
+  pdfauthor={Xinhao Zheng},
   pdfsubject={AI agent evaluation; benchmark saturation; measurement},
 }
 
@@ -43,10 +44,10 @@
   Meaning and Measurement After Machines\\
   Saturate the Gaokao}}
 \author{%
-  [Author]\thanks{Corresponding author: \texttt{[email]}.
-    Stems, verified key, prompts, submissions, score reports, and figure
-    code: \url{[REPO-URL]}.}\\[2pt]
-  \small [Affiliation]}
+  Xinhao Zheng\thanks{Correspondence: \texttt{noctis428@outlook.com}.
+    Code and data:
+    \url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}.}\\[2pt]
+  \small Independent Researcher}
 \date{11 June 2026}
 
 \begin{document}
@@ -262,23 +263,25 @@ Five findings carry the argument of the paper.
 \paragraph{F1 --- The ceiling is the mode.}
 Five of ten agents scored $150/150$; the cohort took $91.9\%$ of available
 points (mean $137.8$, median $145$, s.d.\ $16.3$, range $103$--$150$).
-Eleven of nineteen items---\Q{1}--\Q{7}, \Q{9}, \Q{12}, \Q{15}---were
+Ten of nineteen items---\Q{1}--\Q{7}, \Q{9}, \Q{12}, \Q{15}---were
 solved in full by every agent, including a 28-second run by a speed-tier
 model. What dispersion remains is produced almost entirely by the
 cohort's tail.
 
-\paragraph{F2 --- Flagships saturate regardless of vendor.}
+\paragraph{F2 --- Saturation crosses vendor lines.}
 Family means---Gemini $150.0$ ($n{=}2$), GPT $142.0$ ($n{=}3$), Claude
 $134.3$ ($n{=}3$), Composer $130.0$ ($n{=}1$), Kimi $119.0$
 ($n{=}1$)---order the table, but within-family spread (Claude:
 $103$--$150$) exceeds every between-family gap at the top. The stable
-observation is not a vendor ranking: it is that each vendor's strongest
-configuration reaches the ceiling, while family means are dragged by the
-cheapest member. With $n\le 3$ per family, these aggregates describe this
+observation is not a vendor ranking: every family that fielded more than
+one configuration placed its strongest at the ceiling, and family means
+are dragged below it by the cheaper or older members. The two
+single-entry families scored under the ceiling and offer no within-family
+contrast. With $n\le 3$ per family, these aggregates describe this
 cohort, not the families.
 
 \paragraph{F3 --- Points die where global structure is required.}
-Section solve rates: single choice $98.8\%$, fill-in $90.0\%$, free
+Section score rates: single choice $98.8\%$, fill-in $90.0\%$, free
 response $91.4\%$, multiple choice $80.0\%$---the harshest section under
 the 6/3/0 rule, where one wrong option voids the item. At item level,
 \Q{19} (a functional-equation problem closed by an order-theoretic
@@ -325,11 +328,12 @@ the bound approaches zero.
 \end{proposition}
 An item answered correctly by every examinee carries no information about
 them: its discrimination is zero; the response distribution has collapsed
-to a point. By Proposition~\ref{prop:exhaustion}, eleven of nineteen
+to a point. By Proposition~\ref{prop:exhaustion}, ten of nineteen
 items---and, for half
 this cohort, the paper as a whole---have stopped measuring. What still
-discriminates is the tail: cost- and speed-optimized tiers, and the two
-items (\Q{11}, \Q{19}) that demand certified global arguments. None of
+discriminates is the tail of the cohort, and the four items that demand
+global arguments rather than computation (\Q{10}, \Q{11}, \Q{18},
+\Q{19}). None of
 this is a defect of the examination; for humans it remains a
 well-calibrated instrument. It has not been refuted. It has been
 exhausted---and saturation, not refutation, is how benchmarks die.
@@ -484,11 +488,10 @@ Saturated, the examination stops measuring machines. It does not stop
 measuring us.
 
 \paragraph*{Data availability.}
-All artifacts are available at \url{[REPO-URL]}: bilingual stems
-(\texttt{exam/}), the errata-verified key (\texttt{key/}), the rubric
-(\texttt{scoring/}), frozen submissions and score reports
-(\texttt{results/2026-06-10/}), and the figure script
-(\texttt{scripts/plot\_results.py}).
+All artifacts---bilingual stems, the errata-verified key, the scoring
+rubric, the frozen submissions and score reports, and the figure
+code---are publicly available at
+\url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}.
 
 \paragraph*{Ethics note.}
 No human subjects were involved. Model and product names are used

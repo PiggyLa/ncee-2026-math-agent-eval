@@ -37,15 +37,16 @@ No local TeX? Upload the folder to [Overleaf](https://www.overleaf.com):
 
 ---
 
-## Before submitting | 投稿前必填
+## Before submitting | 投稿前检查
 
-Search both `.tex` files for bracketed placeholders:
-两份 `.tex` 中的占位符（全文检索 `[` 即可定位）：
+All placeholders are filled in both `.tex` files · 两份 `.tex` 占位符均已填写：
 
-- `[Author]` / `[作者]` — author name · 作者
-- `[Affiliation]` / `[单位]` — affiliation · 单位
-- `[email]` — contact · 联系邮箱
-- `[REPO-URL]` — public repository URL (appears twice per file) · 仓库地址
+- Author · 作者 — Xinhao Zheng (Independent Researcher · 独立研究者)
+- Contact · 邮箱 — `noctis428@outlook.com` (title footnote · 首页脚注)
+- Repository · 仓库 — <https://github.com/xinhao-zheng/ncee-2026-math-agent-eval>
+  (footnote + data availability, twice per file · 脚注与数据声明各一处)
+
+Ensure the repository is public before submission. · 投稿前确认仓库已公开。
 
 ---
 
@@ -61,7 +62,7 @@ arXiv 仅收英文稿——提交 `en/`；中文稿用于国内预印本或博�
 4. Abstract field: paste the abstract text (plain text, `$...$` math allowed).
 5. Compile check on arXiv: pdfLaTeX, TeX Live — both files use standard
    packages only (`geometry`, `booktabs`, `graphicx`, `amsmath`, `hyperref`,
-   `caption`, `enumitem`, `microtype`, `xcolor`, `lmodern`).
+   `xurl`, `caption`, `enumitem`, `microtype`, `xcolor`, `lmodern`).
 
 ---
 

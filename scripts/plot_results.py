@@ -74,7 +74,7 @@ SLUG_COLOR = {
     "composer-2-5-fast":  "#5D6B7C",
 }
 
-PAPER  = "#FBFCFE"
+PAPER  = "#FFFFFF"
 INK    = "#1B2128"
 SLATE  = "#4A545F"
 MUTE   = "#8A95A1"
@@ -95,7 +95,7 @@ SECTIONS = [
     ("Free response · 13\u201317 pt", 14, 19),
 ]
 
-TITLE_KW = dict(loc="left", fontsize=10.5, fontweight="bold", color=INK, pad=13)
+TITLE_KW = dict(loc="left", fontsize=11.5, fontweight="bold", color=INK, pad=13)
 LETTER_X_LEFT = 0.058
 LETTER_X_RIGHT = 0.654
 FIG_STEM = "ncee2026_results"
@@ -246,7 +246,7 @@ def sorted_models() -> list[dict]:
 
 def panel_letter(fig: plt.Figure, ax: plt.Axes, letter: str, x: float) -> None:
     pos = ax.get_position()
-    fig.text(x, pos.y1 + 0.018, letter, fontsize=12.5, fontweight="bold",
+    fig.text(x, pos.y1 + 0.018, letter, fontsize=13, fontweight="bold",
              color=INK, ha="left", va="baseline")
 
 
@@ -264,26 +264,26 @@ def draw_ranking(ax: plt.Axes, models: list[dict]) -> None:
         ax.scatter([s], [y], s=46, color=m["color"],
                    edgecolor="white", linewidth=1.0, zorder=4)
         ax.text(s + 3.0, y, f"{s}", va="center", ha="left",
-                fontsize=10.5, fontweight="bold", color=INK, zorder=5)
+                fontsize=11, fontweight="bold", color=INK, zorder=5)
         ax.text(-0.015, y - 0.17, m["name"], transform=ax.get_yaxis_transform(),
-                ha="right", va="center", fontsize=9.3, fontweight="bold",
+                ha="right", va="center", fontsize=9.8, fontweight="bold",
                 color=FAMILY_BASE[m["family"]])
         ax.text(-0.015, y + 0.28, fmt_mmss(m["duration_s"]),
                 transform=ax.get_yaxis_transform(),
-                ha="right", va="center", fontsize=6.8, color=MUTE)
+                ha="right", va="center", fontsize=7.4, color=MUTE)
 
     ax.axvline(150, color="#9AA6B2", lw=0.9, dashes=(4, 3), zorder=1.5)
     ax.axvline(mean, color="#8A95A1", lw=0.9, ls=":", zorder=1.5)
     ax.text(mean, -0.78, f"mean = {mean:.1f}", ha="center", va="center",
-            fontsize=7.2, color=MUTE, clip_on=False)
+            fontsize=7.8, color=MUTE, clip_on=False)
     ax.text(-0.015, -0.78, "duration (m:ss)", transform=ax.get_yaxis_transform(),
-            ha="right", va="center", fontsize=6.8, color=MUTE, style="italic")
+            ha="right", va="center", fontsize=7.4, color=MUTE, style="italic")
 
     ax.set_xlim(0, 160)
     ax.set_ylim(n - 0.5, -1.1)
     ax.set_xticks([0, 30, 60, 90, 120, 150])
     ax.set_yticks([])
-    ax.tick_params(axis="x", labelsize=8, length=3, width=0.8)
+    ax.tick_params(axis="x", labelsize=9, length=3, width=0.8)
     ax.grid(axis="x", color=FAINT, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     for side in ("top", "right", "left"):
@@ -318,26 +318,26 @@ def draw_family(ax: plt.Axes) -> None:
         ax.scatter([mean], [y], marker="D", s=58, color=base,
                    edgecolor=INK, linewidth=0.8, zorder=4)
         ax.text(mean, y - 0.34, f"{mean:.1f}", ha="center", va="center",
-                fontsize=8.4, fontweight="bold", color=INK)
+                fontsize=8.9, fontweight="bold", color=INK)
         ax.text(-0.02, y - 0.16, fam, transform=ax.get_yaxis_transform(),
-                ha="right", va="center", fontsize=9.3, fontweight="bold",
+                ha="right", va="center", fontsize=9.8, fontweight="bold",
                 color=base)
         ax.text(-0.02, y + 0.26, f"{FAMILY_VENDOR[fam]} · n={len(ms)}",
                 transform=ax.get_yaxis_transform(),
-                ha="right", va="center", fontsize=6.6, color=MUTE)
+                ha="right", va="center", fontsize=7.2, color=MUTE)
 
     ax.scatter([0.045], [0.945], transform=ax.transAxes, marker="D", s=34,
                color=SLATE, edgecolor=INK, linewidth=0.7,
                clip_on=False, zorder=5)
     ax.text(0.085, 0.945, "mean", transform=ax.transAxes,
-            ha="left", va="center", fontsize=7.0, color=SLATE)
+            ha="left", va="center", fontsize=7.6, color=SLATE)
 
     ax.axvline(150, color="#9AA6B2", lw=0.9, dashes=(4, 3), zorder=1.5)
     ax.set_xlim(96, 158)
     ax.set_ylim(len(agg) - 0.5, -1.1)
     ax.set_xticks([100, 120, 140, 150])
     ax.set_yticks([])
-    ax.tick_params(axis="x", labelsize=8, length=3, width=0.8)
+    ax.tick_params(axis="x", labelsize=9, length=3, width=0.8)
     ax.grid(axis="x", color=FAINT, lw=0.7, zorder=0)
     ax.set_axisbelow(True)
     for side in ("top", "right", "left"):
@@ -356,15 +356,15 @@ def draw_loss_matrix(ax: plt.Axes, models: list[dict]) -> None:
                                    edgecolor="#E2E8EF", lw=0.55, zorder=2))
             if loss > 0:
                 ax.text(c + 0.5, r + 0.52, f"\u2212{loss:g}",
-                        ha="center", va="center", fontsize=7.2,
+                        ha="center", va="center", fontsize=8.0,
                         fontweight="bold", zorder=3,
                         color="white" if ratio > 0.45 else INK)
         total_loss = 150 - sum(m["items"])
         ax.text(-0.012, r + 0.5, m["name"], transform=ax.get_yaxis_transform(),
-                ha="right", va="center", fontsize=8.6,
+                ha="right", va="center", fontsize=9.2,
                 fontweight="bold", color=FAMILY_BASE[m["family"]])
         ax.text(19.25, r + 0.5, f"\u2212{total_loss}" if total_loss else "",
-                ha="left", va="center", fontsize=7.8, color=SLATE,
+                ha="left", va="center", fontsize=8.4, color=SLATE,
                 clip_on=False)
 
     for x in (8, 11, 14):
@@ -373,19 +373,19 @@ def draw_loss_matrix(ax: plt.Axes, models: list[dict]) -> None:
         ax.plot([s + 0.10, e - 0.10], [-0.30, -0.30], color="#6A7480",
                 lw=1.0, zorder=4, clip_on=False)
         ax.text((s + e) / 2, -0.62, label, ha="center", va="center",
-                fontsize=7.2, color="#39424D")
+                fontsize=8.0, color="#39424D")
     ax.text(19.32, -0.62, "\u03a3", ha="left", va="center",
-            fontsize=7.6, color="#39424D", clip_on=False)
+            fontsize=8.2, color="#39424D", clip_on=False)
 
     ax.text(1.0, 1.05, "empty cell = full credit", transform=ax.transAxes,
-            ha="right", va="bottom", fontsize=7.2, color=MUTE)
+            ha="right", va="bottom", fontsize=7.8, color=MUTE)
 
     ax.add_patch(Rectangle((0, 0), 19, n, fill=False,
                            edgecolor="#39424D", lw=1.0, zorder=5))
     ax.set_xlim(-0.02, 19.6)
     ax.set_ylim(n, -1.15)
     ax.set_xticks([c + 0.5 for c in range(19)])
-    ax.set_xticklabels([f"Q{c + 1}" for c in range(19)], fontsize=6.8)
+    ax.set_xticklabels([f"Q{c + 1}" for c in range(19)], fontsize=7.8)
     ax.set_yticks([])
     ax.tick_params(length=0)
     for side in ("top", "right", "left", "bottom"):
@@ -404,10 +404,11 @@ def draw_time(ax: plt.Axes) -> None:
     ax.set_ylim(97, 157)
     ax.set_xticks([0, 10, 20, 30])
     ax.set_yticks([100, 120, 140, 150])
-    ax.tick_params(labelsize=7.2, length=3, width=0.7, colors=MUTE)
+    ax.tick_params(labelsize=8, length=3, width=0.7, colors=MUTE)
     ax.grid(color=FAINT, lw=0.6, zorder=0)
     ax.set_axisbelow(True)
-    ax.set_xlabel("wall-clock time (min)", fontsize=7.6, color=MUTE)
+    ax.set_xlabel("wall-clock time (min)", fontsize=8.5, color=MUTE)
+    ax.set_ylabel("total score", fontsize=8.5, color=MUTE)
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
     for side in ("left", "bottom"):
@@ -429,7 +430,7 @@ def build_figure(paper_mode: bool = False) -> plt.Figure:
                  fontsize=15.5, fontweight="bold", color=INK, va="top")
         fig.text(0.058, 0.934,
                  f"{n} agents \u00b7 19 items \u00b7 150 points \u00b7 {run_id}",
-                 fontsize=9.5, color=SLATE, va="top")
+                 fontsize=10, color=SLATE, va="top")
         fig.add_artist(Line2D([0.058, 0.975], [0.916, 0.916],
                               transform=fig.transFigure, color=RULE, lw=0.9))
 
@@ -456,9 +457,9 @@ def build_figure(paper_mode: bool = False) -> plt.Figure:
                  "reasoning effort = medium where selectable · "
                  "errata-verified key · multiple-choice 6/3/0 · "
                  "equivalent forms accepted",
-                 fontsize=7.4, color="#75808C", va="center")
+                 fontsize=7.8, color="#75808C", va="center")
         fig.text(0.975, 0.026, "ncee-2026-math-agent-eval",
-                 fontsize=7.4, color="#A6AFB9", va="center", ha="right")
+                 fontsize=7.8, color="#A6AFB9", va="center", ha="right")
     return fig
 
 
