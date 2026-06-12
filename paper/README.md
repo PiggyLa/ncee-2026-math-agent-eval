@@ -42,7 +42,7 @@ No local TeX? Upload the folder to [Overleaf](https://www.overleaf.com):
 All placeholders are filled in both `.tex` files · 两份 `.tex` 占位符均已填写：
 
 - Author · 作者 — Xinhao Zheng (Independent Researcher · 独立研究者)
-- Contact · 邮箱 — `noctis428@outlook.com` (title footnote · 首页脚注)
+- Contact · 邮箱 — `xinhaozheng.vx@outlook.com` (title footnote · 首页脚注)
 - Repository · 仓库 — <https://github.com/xinhao-zheng/ncee-2026-math-agent-eval>
   (footnote + data availability, twice per file · 脚注与数据声明各一处)
 
@@ -62,7 +62,10 @@ arXiv 仅收英文稿——提交 `en/`；中文稿用于国内预印本或博�
 4. Abstract field: paste the abstract text (plain text, `$...$` math allowed).
 5. Compile check on arXiv: pdfLaTeX, TeX Live — both files use standard
    packages only (`geometry`, `booktabs`, `graphicx`, `amsmath`, `hyperref`,
-   `xurl`, `caption`, `enumitem`, `microtype`, `xcolor`, `lmodern`).
+   `xurl`, `caption`, `enumitem`, `microtype`, `xcolor`, `lmodern`, `natbib`).
+6. References are embedded as a `thebibliography` block (no `.bib` file
+   needed; two pdfLaTeX passes resolve all citations).
+   参考文献以 `thebibliography` 内嵌（无需 `.bib`；pdfLaTeX 跑两遍即可）。
 
 ---
 

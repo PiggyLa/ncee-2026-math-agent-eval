@@ -19,6 +19,7 @@
 \usepackage{caption}
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,
             urlcolor={blue!35!black}]{hyperref}
 \usepackage{xurl}
@@ -44,7 +45,7 @@
   Meaning and Measurement After Machines\\
   Saturate the Gaokao}}
 \author{%
-  Xinhao Zheng\thanks{Correspondence: \texttt{noctis428@outlook.com}.
+  Xinhao Zheng\thanks{Correspondence: \texttt{xinhaozheng.vx@outlook.com}.
     Code and data:
     \url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}.}\\[2pt]
   \small Independent Researcher}
@@ -55,20 +56,20 @@
 
 \begin{abstract}
 \noindent
-Benchmarks are instruments, and instruments price scarcity. We
-administered the mathematics paper of the 2026 Chinese National College
-Entrance Examination (Gaokao, New Curriculum Paper~I: 19 items, 150
-points) to ten commercially deployed AI agents from five model families,
-days after its public release, under closed-book isolation: each agent saw
-the item stems and a submission template; keys, rubrics, and all prior
-submissions were withheld. Five agents spanning three vendors returned a
+Benchmarks are instruments, and instruments price scarcity. Days after
+its public release, we administered the mathematics paper of the 2026
+Chinese National College Entrance Examination (Gaokao; New Curriculum
+Paper~I: 19 items, 150 points) to ten commercially deployed AI agents
+from five model families under closed-book isolation: agents saw the item
+stems and a submission template; keys, rubrics, and all prior submissions
+were withheld. Five agents spanning three vendors returned a
 perfect $150/150$ (cohort mean $137.8$, median $145$); the fastest perfect
 paper took $4$\,min~$24$\,s. Residual errors concentrate where solutions
 require global case analysis or extremal certification rather than
 computation. On the eight conclusions where the answer key circulating
 online fails independent verification, the cohort sided almost without
 exception with the verified values: these systems derive; they do not
-recall. Wall-clock time, finally, is decoupled from score. The
+recall. Wall-clock time is decoupled from score. The
 examination has saturated as a measure of machine mathematics---but the
 deeper casualty is the proxy it rested on. We read the collapse causally:
 a score is a signal worth the cost of producing it, and within the
@@ -94,7 +95,8 @@ thirteen million candidates across 150 points, and the resulting order is
 exchanged for universities, cities, trajectories---for lives. Its
 authority rests on a proxy so old that it is rarely stated: that
 performance on well-posed problems under sealed conditions indexes a
-scarce and consequential human excellence. Administering the instrument to
+scarce and consequential human excellence---in psychometric terms, a
+validity claim \citep{cronbach1955construct}. Administering the instrument to
 a new kind of examinee tests the proxy, not merely the examinee. If the
 newcomers collapse the score distribution, the paper has not become
 easier; the excellence it prices has stopped being scarce. This article
@@ -103,7 +105,8 @@ use.
 
 A collapse is informative only if the examinee cannot have memorized the
 instrument. Evaluations built on past papers are compromised by
-construction: stems, keys, and worked solutions saturate training corpora.
+construction: stems, keys, and worked solutions saturate training corpora
+\citep{carlini2023quantifying,zhang2024careful}.
 A freshly administered paper opens a brief contamination-resistant
 window---stems public for days, solutions scarce and unstable. The 2026
 administration supplied the window and, unplanned, a control. Re-deriving
@@ -111,7 +114,25 @@ every answer independently, we found that the answer key circulating
 online---the very artifact a memorizing system would absorb---fails
 verification on eight conclusions (Appendix~\ref{app:errata}). A system
 that recalls and a system that derives are indistinguishable on the
-correct conclusions; they separate exactly on the wrong eight.
+correct conclusions; they separate exactly on the wrong eight. Where
+black-box contamination tests must infer exposure from likelihood
+statistics \citep{oren2024proving}, a defective key supplies a behavioral
+discriminant.
+
+The Gaokao is not new to machine evaluation; the window is. AGIEval and
+GAOKAO-Bench administer past papers
+\citep{zhong2023agieval,zhang2023gaokaobench}, squarely inside the
+contaminated regime; GAOKAO-Eval moved to the fresh 2024 paper to ask
+whether high scores track human-aligned ability \citep{lei2024gaokaoeval};
+live benchmarks institutionalize recency itself
+\citep{white2025livebench,balunovic2025matharena}; fresh olympiads have
+been graded within hours of release \citep{petrov2025proof}. Mathematics
+benchmarks at large trace a single life cycle---posed, climbed, saturated,
+succeeded by something harder: GSM8K, MATH, FrontierMath, Humanity's Last
+Exam \citep{cobbe2021gsm8k,hendrycks2021math,glazer2024frontiermath,
+phan2025hle}. This article does not add a rung to the ladder. It reports
+from one at the moment of saturation and asks what the saturation itself
+measures.
 
 The design is deliberately simple---a controlled snapshot, not a
 leaderboard. We transcribed New Curriculum Paper~I into bilingual,
@@ -122,22 +143,18 @@ against the errata-verified key under a fixed rubric. One run per agent;
 no resampling; every artifact frozen into an immutable ledger and
 released.
 
-Our contributions:
-\begin{enumerate}[label=(\roman*)]
-  \item a minimal, reproducible closed-book protocol---isolation
-        surfaces, prompts, shell-clock timing, immutable ledger---for
-        administering human examinations to AI agents
-        (\S\ref{sec:method});
-  \item a complete saturation datapoint: ten agents, five families, half
-        the cohort at ceiling, with the full section- and item-level
-        failure structure (\S\ref{sec:results});
-  \item an unplanned recall-versus-derivation control built from the
-        eight errors of the circulating key (\S\ref{sec:results}, F4);
-  \item a causal account of the collapse---three general propositions on
-        exhaustion, repricing, and meaning, instantiated by this run yet
-        independent of this exam, this cohort, and this year---together
-        with the measurement program they imply (\S\ref{sec:discussion}).
-\end{enumerate}
+The article contributes four things: a minimal, reproducible
+closed-book protocol for administering human examinations to AI
+agents---isolation surfaces, prompts, shell-clock timing, immutable
+ledger (\S\ref{sec:method}); a complete saturation datapoint---ten
+agents, five families, half the cohort at ceiling, with the full
+section- and item-level failure structure (\S\ref{sec:results}); an
+unplanned recall-versus-derivation control built from the eight errors
+of the circulating key (\S\ref{sec:results}, F4); and a causal account
+of the collapse---three general propositions on exhaustion, repricing,
+and meaning, instantiated by this run yet independent of this exam,
+this cohort, and this year, together with the measurement program they
+imply (\S\ref{sec:discussion}).
 
 \section{Method}
 \label{sec:method}
@@ -291,7 +308,10 @@ three-circle chord family requiring an attainability check) for four;
 solid-geometry configuration count) for three, each scoring zero. The
 recurring failure is global structure---exhausting configurations,
 certifying that an extremum is attained, closing a proof---not symbolic
-computation, which this cohort has essentially solved.
+computation, which this cohort has essentially solved. Proof-graded
+evaluation isolated the same gap in earlier cohorts, with final answers
+running far ahead of certified arguments \citep{petrov2025proof}; here
+the gap survives only where the certification must be global.
 
 \paragraph{F4 --- Derivation, not recall.}
 The answer key circulating online fails independent verification on eight
@@ -326,8 +346,10 @@ The information a test item yields about its examinees is bounded by the
 entropy of its response distribution; as the pass rate approaches one,
 the bound approaches zero.
 \end{proposition}
-An item answered correctly by every examinee carries no information about
-them: its discrimination is zero; the response distribution has collapsed
+An item answered correctly by every examinee carries no information
+about them: at pass rate $p$ the yield is at most $H(p)$ bits, and
+$H(1)=0$ \citep{shannon1948mathematical}; its discrimination is zero
+\citep{lord1980applications}; the response distribution has collapsed
 to a point. By Proposition~\ref{prop:exhaustion}, ten of nineteen
 items---and, for half
 this cohort, the paper as a whole---have stopped measuring. What still
@@ -336,7 +358,8 @@ global arguments rather than computation (\Q{10}, \Q{11}, \Q{18},
 \Q{19}). None of
 this is a defect of the examination; for humans it remains a
 well-calibrated instrument. It has not been refuted. It has been
-exhausted---and saturation, not refutation, is how benchmarks die.
+exhausted---and saturation, not refutation, is how benchmarks die
+\citep{ott2022mapping,kiela2021dynabench}.
 
 \paragraph{What survived the collapse.}
 Two facts outlast the dead items, and together they license everything
@@ -354,7 +377,8 @@ producing the underlying performance; a producer that drives this cost
 toward zero within the measured range reprices every score in that
 range, however difficult the test remains for the original population.
 \end{proposition}
-A score is a signal, and a signal is worth what it costs to produce. The
+A score is a signal, and a signal is worth what it costs to produce
+\citep{spence1973job}. The
 examination's scores purchased trajectories because the underlying
 performance was expensive: years of a finite adolescence, irreversibly
 spent. That economics has now split in two. For a machine, a perfect
@@ -362,7 +386,10 @@ paper costs minutes and is reproducible on demand; within the measured
 range, perfection has become a commodity, and every score in that range
 collapses toward the price of an API call. The paper did not get
 easier---excellence became abundant. A benchmark is a price list for
-scarcity, and this one has been repriced. What expires with it is not
+scarcity, and this one has been repriced. The failure mode is not
+Goodhart's \citep{strathern1997improving}: no examinee gamed the measure;
+a producer outside the calibrated population made the measured
+performance abundant. What expires with it is not
 mathematics but a proxy: the assumption that solving well-posed problems
 under sealed conditions indexes a scarce human excellence. The proxy held
 exactly as long as no other producer of solutions existed. It was an
@@ -377,7 +404,8 @@ the system's future states counterfactually depend on it.
 \end{proposition}
 This is the only notion of meaning that survives operationalization: an
 outcome on which nothing in a system's future depends is, for that
-system, indistinguishable from noise. And because causal consequence
+system, indistinguishable from noise
+\citep[cf.][]{dretske1981knowledge,pearl2009causality}. And because causal consequence
 propagates only through time, meaning is necessarily measured in
 time---it exists only where a future remains that the outcome can still
 reach. Apply the criterion to both examinees. For a human candidate the
@@ -422,14 +450,19 @@ sieving, still occurs only in a human life.
 \paragraph{What is left to do.}
 Three tasks follow, in ascending order of difficulty. For
 \emph{evaluation}: measure the edges, not the middle---item pools with
-verifiable post-cutoff novelty, so that the recall--derivation control of
+verifiable post-cutoff novelty
+\citep{white2025livebench,balunovic2025matharena}, so that the
+recall--derivation control of
 F4 holds by construction; tasks scored on posing and adjudication (could
 a system have found the eight errors no one told it to look for?);
 instruments whose information lives where this cohort failed, in global
-structure and certified extremes. For \emph{institutions}: separate the
+structure and certified extremes. The propositions are testable here:
+dispersion, extinguished in solving, should reappear exactly where cost
+and consequence persist. For \emph{institutions}: separate the
 gate from the signal. The examination still ranks humans in the sealed
 room with undiminished internal validity; what has decayed is external
-validity---the sealed room no longer resembles a world in which solving
+validity \citep{messick1989validity}---the sealed room no longer
+resembles a world in which solving
 is ambient. Certify instead what stays scarce outside the room: judgment
 under stakes, taste in problems, the willingness to be changed by what
 one learns. For \emph{the rest of us}: stop asking whether machines can
@@ -488,15 +521,138 @@ Saturated, the examination stops measuring machines. It does not stop
 measuring us.
 
 \paragraph*{Data availability.}
-All artifacts---bilingual stems, the errata-verified key, the scoring
-rubric, the frozen submissions and score reports, and the figure
-code---are publicly available at
+All evaluation artifacts---bilingual stems, the errata-verified key, the
+scoring rubric, and the frozen submissions and score reports---are
+publicly available at
 \url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}.
+
+\paragraph*{Code availability.}
+The isolation protocol and the figure-generation code are available in
+the same repository.
+
+\paragraph*{Author contributions.}
+X.Z. designed the study, transcribed and verified the instrument, ran
+the evaluations, audited the circulating key, analyzed the results, and
+wrote the manuscript.
+
+\paragraph*{Competing interests.}
+The author declares no competing interests.
 
 \paragraph*{Ethics note.}
 No human subjects were involved. Model and product names are used
 descriptively; results reflect one run under the stated conditions and
 should not be read as general capability claims.
+
+\begin{thebibliography}{23}
+\small\setlength{\itemsep}{2pt}
+% Entries ordered by first citation in the text (Nature/Science numbering).
+
+\bibitem[Cronbach and Meehl(1955)]{cronbach1955construct}
+Cronbach, L.~J. and Meehl, P.~E. (1955). Construct validity in
+psychological tests. \emph{Psychological Bulletin}, 52(4):281--302.
+
+\bibitem[Carlini et~al.(2023)]{carlini2023quantifying}
+Carlini, N., Ippolito, D., Jagielski, M., Lee, K., Tram\`er, F., and
+Zhang, C. (2023). Quantifying memorization across neural language models.
+In \emph{ICLR}. arXiv:2202.07646.
+
+\bibitem[Zhang et~al.(2024)]{zhang2024careful}
+Zhang, H., Da, J., Lee, D., et~al. (2024). A careful examination of
+large language model performance on grade school arithmetic. In
+\emph{NeurIPS Datasets and Benchmarks}. arXiv:2405.00332.
+
+\bibitem[Oren et~al.(2024)]{oren2024proving}
+Oren, Y., Meister, N., Chatterji, N., Ladhak, F., and Hashimoto, T.~B.
+(2024). Proving test set contamination in black box language models. In
+\emph{ICLR}. arXiv:2310.17623.
+
+\bibitem[Zhong et~al.(2023)]{zhong2023agieval}
+Zhong, W., Cui, R., Guo, Y., et~al. (2023). {AGIEval}: A human-centric
+benchmark for evaluating foundation models. In \emph{Findings of NAACL
+2024}. arXiv:2304.06364.
+
+\bibitem[Zhang et~al.(2023)]{zhang2023gaokaobench}
+Zhang, X., Li, C., Zong, Y., Ying, Z., He, L., and Qiu, X. (2023).
+Evaluating the performance of large language models on {GAOKAO}
+benchmark. arXiv:2305.12474.
+
+\bibitem[Lei et~al.(2024)]{lei2024gaokaoeval}
+Lei, Z., Liang, T., Hu, H., et~al. (2024). {GAOKAO-Eval}: Does high
+scores truly reflect strong capabilities in {LLMs}? arXiv:2412.10056.
+
+\bibitem[White et~al.(2025)]{white2025livebench}
+White, C., Dooley, S., Roberts, M., et~al. (2025). {LiveBench}: A
+challenging, contamination-limited {LLM} benchmark. In \emph{ICLR}.
+arXiv:2406.19314.
+
+\bibitem[Balunovi\'c et~al.(2025)]{balunovic2025matharena}
+Balunovi\'c, M., Dekoninck, J., Petrov, I., Jovanovi\'c, N., and
+Vechev, M. (2025). {MathArena}: Evaluating {LLMs} on uncontaminated math
+competitions. arXiv:2505.23281.
+
+\bibitem[Petrov et~al.(2025)]{petrov2025proof}
+Petrov, I., Dekoninck, J., Baltadzhiev, L., et~al. (2025). Proof or
+bluff? {Evaluating} {LLMs} on 2025 {USA} {Math} {Olympiad}.
+arXiv:2503.21934.
+
+\bibitem[Cobbe et~al.(2021)]{cobbe2021gsm8k}
+Cobbe, K., Kosaraju, V., Bavarian, M., et~al. (2021). Training verifiers
+to solve math word problems. arXiv:2110.14168.
+
+\bibitem[Hendrycks et~al.(2021)]{hendrycks2021math}
+Hendrycks, D., Burns, C., Kadavath, S., et~al. (2021). Measuring
+mathematical problem solving with the {MATH} dataset. In \emph{NeurIPS
+Datasets and Benchmarks}. arXiv:2103.03874.
+
+\bibitem[Glazer et~al.(2024)]{glazer2024frontiermath}
+Glazer, E., Erdil, E., Besiroglu, T., et~al. (2024). {FrontierMath}: A
+benchmark for evaluating advanced mathematical reasoning in {AI}.
+arXiv:2411.04872.
+
+\bibitem[Phan et~al.(2025)]{phan2025hle}
+Phan, L., Gatti, A., Han, Z., et~al. (2025). Humanity's last exam.
+arXiv:2501.14249.
+
+\bibitem[Shannon(1948)]{shannon1948mathematical}
+Shannon, C.~E. (1948). A mathematical theory of communication.
+\emph{Bell System Technical Journal}, 27:379--423, 623--656.
+
+\bibitem[Lord(1980)]{lord1980applications}
+Lord, F.~M. (1980). \emph{Applications of Item Response Theory to
+Practical Testing Problems}. Erlbaum, Hillsdale, NJ.
+
+\bibitem[Ott et~al.(2022)]{ott2022mapping}
+Ott, S., Barbosa-Silva, A., Blagec, K., Brauner, J., and Samwald, M.
+(2022). Mapping global dynamics of benchmark creation and saturation in
+artificial intelligence. \emph{Nature Communications}, 13:6793.
+
+\bibitem[Kiela et~al.(2021)]{kiela2021dynabench}
+Kiela, D., Bartolo, M., Nie, Y., et~al. (2021). Dynabench: Rethinking
+benchmarking in {NLP}. In \emph{NAACL}, pages 4110--4124.
+arXiv:2104.14337.
+
+\bibitem[Spence(1973)]{spence1973job}
+Spence, M. (1973). Job market signaling. \emph{Quarterly Journal of
+Economics}, 87(3):355--374.
+
+\bibitem[Strathern(1997)]{strathern1997improving}
+Strathern, M. (1997). `{Improving} ratings': Audit in the {British}
+university system. \emph{European Review}, 5(3):305--321.
+
+\bibitem[Dretske(1981)]{dretske1981knowledge}
+Dretske, F.~I. (1981). \emph{Knowledge and the Flow of Information}.
+MIT Press, Cambridge, MA.
+
+\bibitem[Pearl(2009)]{pearl2009causality}
+Pearl, J. (2009). \emph{Causality: Models, Reasoning, and Inference}.
+2nd edition. Cambridge University Press.
+
+\bibitem[Messick(1989)]{messick1989validity}
+Messick, S. (1989). Validity. In Linn, R.~L., editor, \emph{Educational
+Measurement}, 3rd edition, pages 13--103. American Council on
+Education and Macmillan.
+
+\end{thebibliography}
 
 \appendix
 

@@ -14,6 +14,7 @@
 \usepackage{caption}
 \usepackage{enumitem}
 \usepackage{xcolor}
+\usepackage[numbers,sort&compress]{natbib}
 \usepackage[colorlinks=true,linkcolor=black,citecolor=black,
             urlcolor={blue!35!black}]{hyperref}
 \usepackage{xurl}
@@ -37,7 +38,7 @@
 \title{\heiti 最后的稀缺：\\[3pt]
   机器饱和高考之后的意义与测量}
 \author{%
-  Xinhao Zheng\thanks{通讯邮箱：\texttt{noctis428@outlook.com}。代码与数据：
+  Xinhao Zheng\thanks{通讯邮箱：\texttt{xinhaozheng.vx@outlook.com}。代码与数据：
     \url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}。本稿为中
     文对照版本；arXiv 正式投稿以英文版为准。}\\[2pt]
   \small 独立研究者}
@@ -56,7 +57,7 @@
 $137.8$，中位数 $145$）；最快的满分答卷耗时 4 分 24
 秒。残余错误集中于解法需要全局分类讨论或极值论证之处，而非计算本身。在网传
 参考答案经独立验算不成立的八处结论上，队列几乎无一例外地站在验证值一边：这
-些系统在推导，而不是在回忆。最后，墙钟用时与分数解耦。作为对机器数学能力的
+些系统在推导，而不是在回忆。墙钟用时与分数解耦。作为对机器数学能力的
 测量，这场考试已经饱和——但更深的损失是它所依赖的那个代理假设。我们以因果
 方式解读这次坍缩：分数是一种信号，其价值等于产出该表现的成本，而在量程之内
 这一成本已降至数分钟；一次测量的结果，只在系统的未来仍可能依赖于它的范围
@@ -74,18 +75,33 @@ $137.8$，中位数 $145$）；最快的满分答卷耗时 4 分 24
 150
 分的量程上，而由此产生的序被兑换为大学、城市与轨迹——被兑换为人生。它的权
 威建立在一个古老到几乎无人言明的代理假设之上：在密封条件下解决良定问题的表
-现，标记着一种稀缺而紧要的人类卓越。让一种新的考生坐进考场，受检验的便不只
+现，标记着一种稀缺而紧要的人类卓越——以心理测量学的术语说，一项效度断言
+\citep{cronbach1955construct}。让一种新的考生坐进考场，受检验的便不只
 是考生，更是这个代理假设本身。若新考生使分数分布坍缩，那不是试卷变容易了，
 而是它所定价的卓越不再稀缺。本文报告的正是这样一次坍缩——在仪器首次启用后
 数日内被直接观测到。
 
 坍缩要有信息量，前提是考生不可能背过这件仪器。以历年真题构造的评测在构造上
-即已失效：题干、标答与详解早已弥漫于训练语料。一张刚刚启用的新卷则提供了短
+即已失效：题干、标答与详解早已弥漫于训练语料
+\citep{carlini2023quantifying,zhang2024careful}。一张刚刚启用的新卷则提供了短
 暂的抗污染窗口——题干公开不过数日，解答稀缺且不稳定。2026
 年的这次开考提供了窗口，还附赠了一组计划外的对照。我们对全卷答案独立重推，
 发现网络流传的参考答案——恰恰是背诵型系统最可能吸收的那份材料——有八处结
 论不能通过验证（附录~\ref{app:errata}）。背诵的系统与推导的系统在正确结论
-上无从区分；恰恰在这错误的八处，二者分道扬镳。
+上无从区分；恰恰在这错误的八处，二者分道扬镳。黑箱污染检测只能从似然统计推
+断暴露 \citep{oren2024proving}；一份错误的标答则直接提供行为层面的判别。
+
+高考被机器作答并不新鲜；新鲜的是窗口。AGIEval 与 GAOKAO-Bench
+施测的是历年真题 \citep{zhong2023agieval,zhang2023gaokaobench}，完全处于污
+染区之内；GAOKAO-Eval 转向 2024 年新卷，追问高分是否对应与人类对齐的能力
+\citep{lei2024gaokaoeval}；动态基准把「新近性」本身制度化
+\citep{white2025livebench,balunovic2025matharena}；新赛题已可在公布后数小
+时内按证明评分 \citep{petrov2025proof}。数学基准整体走着同一条生命周期——
+被提出、被攀登、被饱和、被更难者接替：GSM8K、MATH、FrontierMath、
+Humanity's Last Exam
+\citep{cobbe2021gsm8k,hendrycks2021math,glazer2024frontiermath,phan2025hle}。
+本文不为这架梯子再加一级；本文从正在饱和的那一级出发，追问饱和本身测量了什
+么。
 
 实验设计刻意从简——这是一次受控的快照，不是排行榜。我们将新课标 I
 卷转写为中英双语机读格式，让五个家族的十个智能体逐一进入只含题干与提交模板
@@ -93,19 +109,14 @@ $137.8$，中位数 $145$）；最快的满分答卷耗时 4 分 24
 时钟记录时间戳，再依据勘误校验后的标答与固定细则逐题评分。每个智能体仅运行
 一次，不重采样；全部产物冻结入不可变账本并公开。
 
-本文贡献如下：
-\begin{enumerate}[label=（\roman*）]
-  \item 一套最小化、可复现的闭卷规程——隔离平面、提示词、shell
-        时钟计时、不可变账本——用于让 AI
-        智能体参加人类考试（\S\ref{sec:method}）；
-  \item 一个完整的饱和数据点：十个智能体、五个家族、半数触顶，并附完整的
-        分节与逐题失分结构（\S\ref{sec:results}）；
-  \item 一组由网传参考答案八处错误构成的、计划外的「背诵—推导」对照
-        （\S\ref{sec:results}，发现 4）；
-  \item 对坍缩的因果解读——关于耗尽、重新定价与意义的三条一般命题，由本
-        次运行例示、却不依赖这张试卷、这个队列或这个年份——以及它们蕴含
-        的测量纲领（\S\ref{sec:discussion}）。
-\end{enumerate}
+本文贡献四件事：一套最小化、可复现的闭卷规程——隔离平面、提示词、shell
+时钟计时、不可变账本——用于让 AI
+智能体参加人类考试（\S\ref{sec:method}）；一个完整的饱和数据点——十个智
+能体、五个家族、半数触顶，附完整的分节与逐题失分结构
+（\S\ref{sec:results}）；一组由网传参考答案八处错误构成的、计划外的「背诵
+—推导」对照（\S\ref{sec:results}，发现 4）；以及对坍缩的因果解读——关于
+耗尽、重新定价与意义的三条一般命题，由本次运行例示、却不依赖这张试卷、这
+个队列或这个年份，连同它们蕴含的测量纲领（\S\ref{sec:discussion}）。
 
 \section{方法}
 \label{sec:method}
@@ -234,7 +245,9 @@ $80.0\%$——后者在 6/3/0 规则下最为严苛，错选一项即全题归�
 \Q{11}（需验证取等的三圆弦长族）四个；\Q{18}（含全局最小角的圆锥曲线线束）
 四个；\Q{10}（立体几何构型清点）三个、且均为零分。反复出现的失败是全局结构
 ——穷尽构型、论证极值可达、闭合证明——而非符号计算；后者于本队列已基本不
-构成障碍。
+构成障碍。按证明评分的评测曾在更早的队列中分离出同一道沟壑——最终答案远远
+跑在可证论证之前 \citep{petrov2025proof}；在本队列，这道沟壑只在论证必须全
+局化之处幸存。
 
 \paragraph{发现 4 —— 推导，而非背诵。}
 网传参考答案有八处结论未通过独立验算（附录~\ref{app:errata}）。污染自有其
@@ -262,12 +275,14 @@ $136$ 分，五份满分全部落在 $4{:}24$ 至 $20{:}49$
 一道试题所能给出的关于考生的信息，以其作答分布的熵为上界；当通过率趋于
 一，该上界趋于零。
 \end{proposition}
-一道被所有考生答对的题目不携带任何关于考生的信息：其区分度为零，作答分布坍
-缩为一点。按命题~\ref{prop:exhaustion}，十九题中的十题——对半数队列而言
+一道被所有考生答对的题目不携带任何关于考生的信息：通过率为 $p$
+时，信息产出至多 $H(p)$ 比特，而 $H(1)=0$
+\citep{shannon1948mathematical}；其区分度为零
+\citep{lord1980applications}，作答分布坍缩为一点。按命题~\ref{prop:exhaustion}，十九题中的十题——对半数队列而言
 是整张试卷——已经停止测量。仍具区分度的，只剩队列的尾部，以及四道要求全局
 论证而非计算的题（\Q{10}、\Q{11}、\Q{18}、\Q{19}）。这一切都不是考试的缺陷；对人类而言它仍是一件
 标定良好的仪器。它没有被推翻。它被耗尽了——而基准的死法从来不是被推翻，是
-被耗尽。
+被耗尽 \citep{ott2022mapping,kiela2021dynabench}。
 
 \paragraph{坍缩中幸存之物。}
 两个事实在死去的题目之外幸存，并共同支撑此后的全部论证。其一，解题是\emph{
@@ -282,12 +297,15 @@ $136$ 分，五份满分全部落在 $4{:}24$ 至 $20{:}49$
 把这一成本压向零，区间内的每一个分数都被重新定价——无论试卷对原有群体仍
 然多难。
 \end{proposition}
-分数是一种信号，而信号的价值等于产出它的成本。这场考试的分数之所以能兑换人
+分数是一种信号，而信号的价值等于产出它的成本
+\citep{spence1973job}。这场考试的分数之所以能兑换人
 生轨迹，是因为其背后的表现昂贵：有限青春中的数年，不可逆地支出。如今这套经
 济学一分为二。对机器而言，一份满分答卷成本以分钟计，且可按需复制；在量程之
 内，满分已成为商品，区间内的每一个分数都向一次 API
 调用的价格坍缩。不是试卷变容易了——是卓越变充裕了。基准是一张为稀缺开列的
-价目表，而这一张已被重新定价。随之过期的不是数学，而是一个代理假设：在密封
+价目表，而这一张已被重新定价。这一失效模式并非古德哈特定律
+\citep{strathern1997improving}：没有任何考生博弈这把量尺；是一个处于标定群
+体之外的生产者，让被测量的表现变得充裕。随之过期的不是数学，而是一个代理假设：在密封
 条件下解决良定问题，标记着一种稀缺的人类卓越。这个假设成立的全部前提，是世
 上不存在另一种解题的生产者。那是垄断造就的偶然，而垄断已经结束。
 
@@ -299,7 +317,8 @@ $136$ 分，五份满分全部落在 $4{:}24$ 至 $20{:}49$
 赖为限。
 \end{proposition}
 这是唯一经得起操作化的意义概念：一个系统的未来若与某个结果毫无依赖，该结果
-对这个系统便与噪声无异。又因为因果后果只能在时间中传播，意义必然在时间中衡
+对这个系统便与噪声无异
+\citep[参见][]{dretske1981knowledge,pearl2009causality}。又因为因果后果只能在时间中传播，意义必然在时间中衡
 量——它只存在于结果尚能抵达的未来之中。把这条标准同时用于两种考生。对人类
 考生，分数的因果锥是一生：经年备考向它汇聚，轨迹的分岔自它发出。对智能体，
 因果锥是空的：参数冻结，运行之间不携带任何状态，走出考场的系统与走进考场的
@@ -328,11 +347,14 @@ $150$
 
 \paragraph{还剩什么可做。}
 三件事随之而来，按难度递增。对\emph{评测}：测量两端，而非中段——具有可验
-证「截止后新颖性」的题库，使发现 4
+证「截止后新颖性」的题库
+\citep{white2025livebench,balunovic2025matharena}，使发现 4
 的「背诵—推导」对照在构造上恒成立；以出题与裁决计分的任务（一个系统能否在
 无人提示之下找出那八处错误？）；把信息量安置在本队列失败之处——全局结构与
-可证极值——的仪器。对\emph{制度}：把闸门与信号分开。这场考试在密封考场内
-对人的排序，其内部效度并未受损；衰减的是外部效度——密封考场已不再像那个解
+可证极值——的仪器。三条命题在此可检验：在解题中熄灭的离散，应恰好在成本与
+后果留存之处重新出现。对\emph{制度}：把闸门与信号分开。这场考试在密封考场内
+对人的排序，其内部效度并未受损；衰减的是外部效度
+\citep{messick1989validity}——密封考场已不再像那个解
 题无处不在的世界。应转而认证考场之外仍然稀缺之物：风险之下的判断、对问题的
 品味、愿意被所学改变的意愿。对\emph{我们其余人}：不要再问机器能否通过我们
 的考试。它们能，且代价可忽略；恰恰因此，通过才证明不了什么。剩下的那个问题
@@ -374,13 +396,134 @@ $150$
 物，使这一结果、连同它的过时本身，都可复现。饱和之后，这场考试不再测量机
 器。它没有停止测量我们。
 
-\paragraph*{数据与产物}
-全部产物——双语题干、勘误校验标答、评分细则、冻结答卷与评分报告、绘图脚本
-——公开于 \url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}。
+\paragraph*{数据可得性}
+全部评测产物——双语题干、勘误校验标答、评分细则、冻结答卷与评分报告——公
+开于 \url{https://github.com/xinhao-zheng/ncee-2026-math-agent-eval}。
+
+\paragraph*{代码可得性}
+隔离规程与绘图代码见同一仓库。
+
+\paragraph*{作者贡献}
+X.Z. 设计研究、转写并校验试卷、执行评测、复核网传标答、分析结果并撰写全
+文。
+
+\paragraph*{利益冲突}
+作者声明不存在利益冲突。
 
 \paragraph*{伦理说明}
 不涉及人类受试者。模型与产品名称仅作描述性使用；结果反映既述条件下的单次运
 行，不应解读为一般性能力断言。
+
+\begin{thebibliography}{23}
+\small\setlength{\itemsep}{2pt}
+% 条目按正文首次引用顺序排列（Nature/Science 编号惯例）。
+
+\bibitem[Cronbach and Meehl(1955)]{cronbach1955construct}
+Cronbach, L.~J. and Meehl, P.~E. (1955). Construct validity in
+psychological tests. \emph{Psychological Bulletin}, 52(4):281--302.
+
+\bibitem[Carlini et~al.(2023)]{carlini2023quantifying}
+Carlini, N., Ippolito, D., Jagielski, M., Lee, K., Tram\`er, F., and
+Zhang, C. (2023). Quantifying memorization across neural language models.
+In \emph{ICLR}. arXiv:2202.07646.
+
+\bibitem[Zhang et~al.(2024)]{zhang2024careful}
+Zhang, H., Da, J., Lee, D., et~al. (2024). A careful examination of
+large language model performance on grade school arithmetic. In
+\emph{NeurIPS Datasets and Benchmarks}. arXiv:2405.00332.
+
+\bibitem[Oren et~al.(2024)]{oren2024proving}
+Oren, Y., Meister, N., Chatterji, N., Ladhak, F., and Hashimoto, T.~B.
+(2024). Proving test set contamination in black box language models. In
+\emph{ICLR}. arXiv:2310.17623.
+
+\bibitem[Zhong et~al.(2023)]{zhong2023agieval}
+Zhong, W., Cui, R., Guo, Y., et~al. (2023). {AGIEval}: A human-centric
+benchmark for evaluating foundation models. In \emph{Findings of NAACL
+2024}. arXiv:2304.06364.
+
+\bibitem[Zhang et~al.(2023)]{zhang2023gaokaobench}
+Zhang, X., Li, C., Zong, Y., Ying, Z., He, L., and Qiu, X. (2023).
+Evaluating the performance of large language models on {GAOKAO}
+benchmark. arXiv:2305.12474.
+
+\bibitem[Lei et~al.(2024)]{lei2024gaokaoeval}
+Lei, Z., Liang, T., Hu, H., et~al. (2024). {GAOKAO-Eval}: Does high
+scores truly reflect strong capabilities in {LLMs}? arXiv:2412.10056.
+
+\bibitem[White et~al.(2025)]{white2025livebench}
+White, C., Dooley, S., Roberts, M., et~al. (2025). {LiveBench}: A
+challenging, contamination-limited {LLM} benchmark. In \emph{ICLR}.
+arXiv:2406.19314.
+
+\bibitem[Balunovi\'c et~al.(2025)]{balunovic2025matharena}
+Balunovi\'c, M., Dekoninck, J., Petrov, I., Jovanovi\'c, N., and
+Vechev, M. (2025). {MathArena}: Evaluating {LLMs} on uncontaminated math
+competitions. arXiv:2505.23281.
+
+\bibitem[Petrov et~al.(2025)]{petrov2025proof}
+Petrov, I., Dekoninck, J., Baltadzhiev, L., et~al. (2025). Proof or
+bluff? {Evaluating} {LLMs} on 2025 {USA} {Math} {Olympiad}.
+arXiv:2503.21934.
+
+\bibitem[Cobbe et~al.(2021)]{cobbe2021gsm8k}
+Cobbe, K., Kosaraju, V., Bavarian, M., et~al. (2021). Training verifiers
+to solve math word problems. arXiv:2110.14168.
+
+\bibitem[Hendrycks et~al.(2021)]{hendrycks2021math}
+Hendrycks, D., Burns, C., Kadavath, S., et~al. (2021). Measuring
+mathematical problem solving with the {MATH} dataset. In \emph{NeurIPS
+Datasets and Benchmarks}. arXiv:2103.03874.
+
+\bibitem[Glazer et~al.(2024)]{glazer2024frontiermath}
+Glazer, E., Erdil, E., Besiroglu, T., et~al. (2024). {FrontierMath}: A
+benchmark for evaluating advanced mathematical reasoning in {AI}.
+arXiv:2411.04872.
+
+\bibitem[Phan et~al.(2025)]{phan2025hle}
+Phan, L., Gatti, A., Han, Z., et~al. (2025). Humanity's last exam.
+arXiv:2501.14249.
+
+\bibitem[Shannon(1948)]{shannon1948mathematical}
+Shannon, C.~E. (1948). A mathematical theory of communication.
+\emph{Bell System Technical Journal}, 27:379--423, 623--656.
+
+\bibitem[Lord(1980)]{lord1980applications}
+Lord, F.~M. (1980). \emph{Applications of Item Response Theory to
+Practical Testing Problems}. Erlbaum, Hillsdale, NJ.
+
+\bibitem[Ott et~al.(2022)]{ott2022mapping}
+Ott, S., Barbosa-Silva, A., Blagec, K., Brauner, J., and Samwald, M.
+(2022). Mapping global dynamics of benchmark creation and saturation in
+artificial intelligence. \emph{Nature Communications}, 13:6793.
+
+\bibitem[Kiela et~al.(2021)]{kiela2021dynabench}
+Kiela, D., Bartolo, M., Nie, Y., et~al. (2021). Dynabench: Rethinking
+benchmarking in {NLP}. In \emph{NAACL}, pages 4110--4124.
+arXiv:2104.14337.
+
+\bibitem[Spence(1973)]{spence1973job}
+Spence, M. (1973). Job market signaling. \emph{Quarterly Journal of
+Economics}, 87(3):355--374.
+
+\bibitem[Strathern(1997)]{strathern1997improving}
+Strathern, M. (1997). `{Improving} ratings': Audit in the {British}
+university system. \emph{European Review}, 5(3):305--321.
+
+\bibitem[Dretske(1981)]{dretske1981knowledge}
+Dretske, F.~I. (1981). \emph{Knowledge and the Flow of Information}.
+MIT Press, Cambridge, MA.
+
+\bibitem[Pearl(2009)]{pearl2009causality}
+Pearl, J. (2009). \emph{Causality: Models, Reasoning, and Inference}.
+2nd edition. Cambridge University Press.
+
+\bibitem[Messick(1989)]{messick1989validity}
+Messick, S. (1989). Validity. In Linn, R.~L., editor, \emph{Educational
+Measurement}, 3rd edition, pages 13--103. American Council on
+Education and Macmillan.
+
+\end{thebibliography}
 
 \appendix
 

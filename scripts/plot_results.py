@@ -407,8 +407,8 @@ def draw_time(ax: plt.Axes) -> None:
     ax.tick_params(labelsize=8, length=3, width=0.7, colors=MUTE)
     ax.grid(color=FAINT, lw=0.6, zorder=0)
     ax.set_axisbelow(True)
-    ax.set_xlabel("wall-clock time (min)", fontsize=8.5, color=MUTE)
-    ax.set_ylabel("total score", fontsize=8.5, color=MUTE)
+    ax.set_xlabel("Wall-clock time (min)", fontsize=8.5, color=MUTE)
+    ax.set_ylabel("Total score", fontsize=8.5, color=MUTE)
     for side in ("top", "right"):
         ax.spines[side].set_visible(False)
     for side in ("left", "bottom"):
